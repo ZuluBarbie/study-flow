@@ -107,13 +107,13 @@ To back up, close all Study Flow processes and copy the database file to a safe 
 python -m unittest discover -v
 ```
 
-Tests use temporary databases and never touch your saved planner. They cover real SQLite persistence, foreign keys, date boundaries, leap years, filtering, complete/reopen, atomic edits, deletion protection, invalid input, and command-line behavior across separate processes. All 21 tests passed locally on Windows with Python 3.14. The prepared workflow in `docs/ci.yml` targets **Windows and Linux with Python 3.10 and 3.14**. It is not active yet: the current GitHub authorization cannot upload workflow files. Once authorized, move it to `.github/workflows/ci.yml` to enable automated checks. Cross-platform CI results are not yet verified.
+Tests use temporary databases and never touch your saved planner. They cover real SQLite persistence, foreign keys, date boundaries, leap years, filtering, complete/reopen, atomic edits, deletion protection, invalid input, and command-line behavior across separate processes. All 21 tests passed locally on Windows with Python 3.14. The active workflow in `.github/workflows/ci.yml` runs on Windows and Linux with Python 3.10 and 3.14. The first hosted run passed all four configurations. Check the Actions tab for current results.
 
 ## Project layout
 
 - `study_flow.py`: database schema, validation, planner operations, and command-line interface.
 - `test_study_flow.py`: database and end-to-end CLI tests.
-- `docs/ci.yml`: prepared automated checks, awaiting workflow authorization.
+- `.github/workflows/ci.yml`: active automated checks; `docs/ci.yml` retains the original template.
 - `data/`: your local records, created on first use and excluded from Git.
 
 The schema has `modules` and `tasks` tables, linked by a foreign key. SQL values are parameterized. Edits validate before writing, and each write is committed in a transaction.
